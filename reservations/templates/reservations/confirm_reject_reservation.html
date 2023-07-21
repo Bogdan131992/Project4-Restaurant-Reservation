@@ -1,0 +1,14 @@
+{% extends 'reservations/base.html' %}
+
+{% block title %}Confirm/Reject Reservation{% endblock %}
+
+{% block content %}
+    <h2>Confirm/Reject Reservation</h2>
+    <p>Reservation ID: {{ reservation.id }} - Table: {{ reservation.table.name }} - {{ reservation.date }} at {{ reservation.time }} - Guests: {{ reservation.guests }}</p>
+    <form method="post">
+        {% csrf_token %}
+        <!-- Add fields for confirmation/rejection -->
+        <button type="submit">Confirm</button>
+        <button type="submit">Reject</button>
+    </form>
+{% endblock %}

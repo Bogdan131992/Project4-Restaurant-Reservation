@@ -1,9 +1,15 @@
-# reservations/views.py
+import django
+django.setup()
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from .forms import SignUpForm, LogInForm, ReservationForm
 from .models import Reservation, Table
+from .utils import is_table_available
+
+def home(request):
+    return render(request, 'home.html')
 
 def sign_up(request):
     if request.method == 'POST':
@@ -21,7 +27,7 @@ def log_in(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('view_tables')
+            return redirect('home')
     else:
         form = LogInForm()
     return render(request, 'reservations/log_in.html', {'form': form})
@@ -60,11 +66,6 @@ def make_reservation(request):
     return render(request, 'reservations/make_reservation.html', {'form': form, 'tables': Table.objects.all()})
 
 @login_required
-def view_reservations(request):
-    reservations = Reservation.objects.filter(user=request.user)
-    return render(request, 'reservations/view_reservations.html', {'reservations': reservations})
-
-@login_required
 def edit_reservation(request, reservation_id):
     reservation = get_object_or_404(Reservation, id=reservation_id)
     if request.method == 'POST':
@@ -88,9 +89,22 @@ def cancel_reservation(request, reservation_id):
         return redirect('view_reservations')
     return render(request, 'reservations/cancel_reservation.html', {'reservation': reservation})
 
-# Helper function to check table availability
-def is_table_available(table, date, time, excluded_reservation_id=None):
-    reservations = Reservation.objects.filter(table=table, date=date, time=time)
-    if excluded_reservation_id:
-        reservations = reservations.exclude(id=excluded_reservation_id)
-    return reservations.count() < table.capacity
+@login_required
+def view_reservations(request):
+    reservations = Reservation.objects.filter(user=request.user)
+    return render(request, 'reservations/view_reservations.html', {'reservations': reservations})
+
+@login_required
+def view_all_reservations(request):
+    reservations = Reservation.objects.all()
+    return render(request, 'reservations/view_all_reservations.html', {'reservations': reservations})
+
+@login_required
+def confirm_reject_reservation(request, reservation_id):
+    reservation = get_object_or_404(Reservation, id=reservation_id)
+    if request.method == 'POST':
+        # Handle confirmation or rejection logic here
+        return redirect('view_all_reservations')
+    return render(request, 'reservations/confirm_reject_reservation.html', {'reservation': reservation})
+
+

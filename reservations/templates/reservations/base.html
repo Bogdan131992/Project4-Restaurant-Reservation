@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <div>
+        <h1>Restaurant Reservation System</h1>
+        <div>
+            {% if user.is_authenticated %}
+                <p>Welcome, {{ user.username }}! | <a href="{% url 'logout' %}">Logout</a></p>
+            {% else %}
+                <p><a href="{% url 'login' %}">Login</a> | <a href="{% url 'sign_up' %}">Sign Up</a></p>
+            {% endif %}
+        </div>
+    </div>
+    <hr>
+    <div>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
