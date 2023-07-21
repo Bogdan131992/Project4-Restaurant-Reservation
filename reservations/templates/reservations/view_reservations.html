@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Reservations</title>
+</head>
+<body>
+    <h1>Reservations</h1>
+    <ul>
+        {% for reservation in reservations %}
+            <li>
+                {{ reservation.user.username }} - Table: {{ reservation.table.name }} - {{ reservation.date }} at {{ reservation.time }} - Guests: {{ reservation.guests }}
+                <a href="{% url 'edit_reservation' reservation.id %}">Edit</a>
+                <a href="{% url 'cancel_reservation' reservation.id %}">Cancel</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
