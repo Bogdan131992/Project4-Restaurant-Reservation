@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+<div class="container mb-3">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <h4 class="page-heading">Amend A Reservation</h4>
+            <!-- Container for the error message if a double booking is made. -->
+            <h6 class="double-booking">{{ error }}</h6>
+            <!-- The reservation form can be found in the reservation app in forms.py. -->
+            <form method="POST">
+                {{ reservation_form | crispy }}
+                {% csrf_token %}
+                <button type="submit" class="btn btn-dark">Request a Reservation</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

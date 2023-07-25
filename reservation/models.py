@@ -13,7 +13,7 @@ class Reservation(models.Model):
     The model for the booking app.
 
     Inherits the user from account sign up.
-    Stores the booking: lead, email, mobile, date, time
+    Stores the booking: full_name, email, mobile, date, time
     and how many guests for each individual booking.
     Plus any special requirement notes.
 

@@ -37,7 +37,7 @@ class ReservationForm(forms.ModelForm):
         validators=[validators.validate_opening_hour],
     )
 
-    notes = forms.CharField(
+    requests = forms.CharField(
         label='Special Requirements',
         required=False,
         widget=forms.Textarea(attrs={
@@ -63,7 +63,7 @@ class ReservationForm(forms.ModelForm):
         model = Reservation
 
         fields = (
-            'mobile', 'date', 'time', 'notes', 'guests'
+            'full_name', 'mobile', 'date', 'time', 'requests', 'guests'
         )
 
         widgets = {

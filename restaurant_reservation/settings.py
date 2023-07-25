@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'reservation'
+    'crispy_forms',
+    'crispy_bootstrap4',
+    'reservation',
 ]
 
 MIDDLEWARE = [
@@ -67,6 +69,10 @@ TEMPLATES = [
         },
     },
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap4'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 WSGI_APPLICATION = 'restaurant_reservation.wsgi.application'
 

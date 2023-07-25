@@ -1,0 +1,40 @@
+/* styles.css */
+
+/* Add your CSS styles here */
+body {
+    font-family: Arial, sans-serif;
+    
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.page-heading {
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-dark {
+    background-color: #333;
+}
+
+.double-booking {
+    color: red;
+}
+
+/* Add more CSS styles as needed */
