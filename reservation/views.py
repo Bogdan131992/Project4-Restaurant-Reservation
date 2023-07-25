@@ -5,9 +5,11 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib import messages
 from django.http import HttpResponseServerError
 from .models import Reservation, Picture
 from .forms import ReservationForm
+
 
 def index(request):
     try:
@@ -93,13 +95,26 @@ def booking_view(request):
         if request.method == 'POST':
             booking_form = ReservationForm(request.POST)
             if booking_form.is_valid():
-                # Save the booking details to the database
-                booking = booking_form.save(commit=False)
-                booking.user = request.user
-                booking.lead = f'{request.user.first_name} {request.user.last_name}'
-                booking.email = request.user.email
-                booking.save()
-                return redirect(reverse("reservations"))
+                # Check if there is any existing reservation with the same date for the same user
+                user = request.user
+                date = booking_form.cleaned_data['date']
+                existing_reservations = Reservation.objects.filter(user=user, date=date)
+
+                if existing_reservations.exists():
+                    # Show an alert message informing the user that the date is already booked
+                    alert_message = f"A reservation on {date} already exists. Please choose another date."
+                    return render(request, 'booking.html', {
+                        "booking_form": booking_form,
+                        "alert_message": alert_message
+                    })
+                else:
+                    # Save the booking details to the database
+                    booking = booking_form.save(commit=False)
+                    booking.user = user
+                    booking.lead = f'{user.first_name} {user.last_name}'
+                    booking.email = user.email
+                    booking.save()
+                    return redirect(reverse("reservations"))
             else:
                 # Form is not valid, render the template with the form and error (if any)
                 return render(request, 'booking.html', {
