@@ -13,8 +13,8 @@
         content="Welcome to Greek Delights, a restaurant in Berlin, Germany, offering the best of Greek cuisine. Enjoy our delicious Greek dishes in a cozy and friendly atmosphere."
     />
     <meta
-        name= "keywords"
-        content= "greek delights, restaurant, greek cuisine, berlin, germany, speciality, menu, table, booking, reservation, location, opening hours, contact, details"
+        name="keywords"
+        content="greek delights, restaurant, greek cuisine, berlin, germany, speciality, menu, table, booking, reservation, location, opening hours, contact, details"
     />
     <!-- Google Fonts. -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,12 +47,16 @@
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+    
+
                 <!-- Contains the navigation links, uses if/else loop for authorization access. -->
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
+                        
                         {% if user.is_authenticated %}
+                        
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'index' %}"><u>Hello {{ user.first_name }} {{ user.last_name }}</u></a>
+                            <a class="nav-link" href="{% url 'index' %}"><u> Home</u></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'booking' %}">Make a Booking</a>
@@ -78,8 +82,11 @@
     </header>
     <!-- The container for the site content displayed across the html templates. -->
     <main class="site-content">
-        {% block content %}
 
+        {% block content %}
+      
+
+        <!-- Rest of the content in the block -->
         {% endblock content %}
     </main>
     <!-- Footer. -->
@@ -108,16 +115,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
     </script>
-    <!-- JavaScript for interactive elements. -->
-    <script>
-        // Example of interactive JavaScript:
-        const greetButton = document.getElementById('greet-button');
-        const greetingMessage = document.getElementById('greeting-message');
-
-        greetButton.addEventListener('click', () => {
-            greetingMessage.innerText = 'Welcome to Greek Delights! Enjoy our delicious Greek dishes in a cozy and friendly atmosphere.';
-        });
-    </script>
+    
 </body>
 
 </html>

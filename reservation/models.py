@@ -4,23 +4,21 @@ from django.core.validators import RegexValidator
 from cloudinary.models import CloudinaryField
 
 
-# A tuple to hold the status key for the Booking model.
+# A tuple to hold the status key for the Reservation model.
 STATUS = ((0, "pending"), (1, "accepted"), (2, "declined"))
 
 
 class Reservation(models.Model):
     """
-    The model for the booking app.
+    Model representing individual reservations made in the booking app.
 
-    Inherits the user from account sign up.
-    Stores the booking: full_name, email, mobile, date, time
-    and how many guests for each individual booking.
-    Plus any special requirement notes.
+    Inherits the user from account sign-up.
+    Stores booking details: full_name, email, mobile, date, time,
+    and number of guests for each reservation, along with any special requirements.
 
-    Defaults the booking status to 'pending' using the above tuple.
+    Default booking status is 'pending' using the above tuple.
 
-    Validation for the mobile field is handled with Django's inbuilt
-    RegexValidator.
+    Mobile field validation is handled with Django's inbuilt RegexValidator.
     """
     # Foreign Key from the User model
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -29,57 +27,56 @@ class Reservation(models.Model):
     email = models.CharField(max_length=300, blank=False)
     # Contact Number for Booking & Validator
     phoneNumberRegex = RegexValidator(regex=r'^\+?1?\d{9,15}$')
-    mobile = models.CharField(
-        validators=[phoneNumberRegex], max_length=15, blank=False
-        )
+    mobile = models.CharField(validators=[phoneNumberRegex], max_length=15, blank=False)
     # Date of Booking
     date = models.DateField(blank=False)
     # Time of Booking
     time = models.TimeField(blank=False)
-    # Special Requests for Booking
-    guests = models.PositiveIntegerField(blank=False)
-    # Booking Status - status updates handled in admin
-    requests = models.TextField(max_length=400)
     # Number of Guests on Booking
+    guests = models.PositiveIntegerField(blank=False)
+    # Special Requests for Booking
+    requests = models.TextField(max_length=400)
+    # Booking Status - status updates handled in admin
     status = models.IntegerField(choices=STATUS, default=0)
 
     class Meta:
         """
-        Orders individual bookings by date in descending order.
+        Model metadata for the Reservation model.
+
+        Orders reservations by date in descending order.
 
         Uses Django's inbuilt UniqueConstraint method to ensure
-        a user cannot make a duplicate booking for the same
-        date & time as one they already have stored in the Booking database.
+        a user cannot make a duplicate reservation for the same
+        date & time as one they already have stored in the Reservation database.
 
-        If a double booking is made, the errorr raised is handled in the
-        relevant views in the booking directory under views.py.
+        If a double reservation is attempted, the error is handled in the
+        relevant views in the booking directory (views.py).
         """
         ordering = ['-date']
-
         constraints = [
             models.UniqueConstraint(
-                fields=['user', 'date', 'time'], name='unique_booking'
-            ), ]
+                fields=['user', 'date', 'time'], name='unique_reservation'
+            ),
+        ]
 
     def __str__(self):
         """
-        Returns the booking date and time to be used as the booking title.
-        Defining this method is reccomended by Django.
+        Returns a string representation of the reservation.
+
+        The booking date and time are used as the reservation title.
+        Defining this method is recommended by Django.
         """
         return f'{self.date} {self.time}'
 
 
 class Picture(models.Model):
     """
-    The model for all images used in the restobook project.
+    Model representing images used in the restobook project.
 
-    Stores the name of the image for ease of coding.
+    Stores the image using CloudinaryField for ease of coding.
     Also allows admins to store the URL of where the image is hosted
     on Cloudinary.
     """
-    picrure = CloudinaryField('picture')
-    
-    url = models.CharField(max_length=100)
+    picture = CloudinaryField('picture')
+    url = models.CharField(max_length=300)
     name = models.CharField(max_length=80, blank=False)
-
-    

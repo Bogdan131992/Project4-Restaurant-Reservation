@@ -3,7 +3,7 @@
 /* Add your CSS styles here */
 body {
     font-family: Arial, sans-serif;
-    
+   
 }
 
 .container {
@@ -35,4 +35,16 @@ body {
 
 .double-booking {
     color: red;
+}
+
+#hello-message-center {
+    display: block; /* or display: inline-block; */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(147, 194, 238, 0.897);
+    color: rgb(248, 20, 31);
+    padding: 20px;
+    font-size: 24px; /* Adjust the font size to your preference */
 }

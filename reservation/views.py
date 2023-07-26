@@ -16,6 +16,14 @@ def index(request):
         hero = Picture.objects.get(name='hero')
     except ObjectDoesNotExist:
         hero = None
+     # Check if the welcome message has been displayed
+    if not request.session.get('welcome_message_displayed', False):
+        # Set the welcome message to be displayed
+        request.session['welcome_message_displayed'] = True
+        # Create the message to be displayed
+        welcome_message = f"Welcome {request.user.username}"
+    else:
+        welcome_message = None
 
     context = {
         'hero': hero,
@@ -91,6 +99,9 @@ from .forms import ReservationForm
 # Import other necessary modules and classes
 
 def booking_view(request):
+    print("Booking View Called")
+    booking_form = ReservationForm()
+    print(booking_form)
     if request.user.is_authenticated:
         if request.method == 'POST':
             booking_form = ReservationForm(request.POST)
@@ -213,6 +224,7 @@ def error_500(request):
 
 def login_view(request):
     if request.user.is_authenticated:
+        request.session['welcome_message_displayed'] = True
         return redirect('index')
 
     if request.method == 'POST':
