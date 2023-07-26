@@ -24,7 +24,7 @@ class Reservation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     # User Info needed for Booking
     full_name = models.CharField(max_length=300, blank=False)
-    email = models.EmailField(max_length=300, blank=False)
+    email = models.EmailField(max_length=300)
     # Contact Number for Booking & Validator
     phoneNumberRegex = RegexValidator(regex=r'^\+?1?\d{9,15}$')
     mobile = models.CharField(validators=[phoneNumberRegex], max_length=15, blank=False)
@@ -66,7 +66,7 @@ class Reservation(models.Model):
         The booking date and time are used as the reservation title.
         Defining this method is recommended by Django.
         """
-        return f'{self.date} {self.time}'
+        return f'{self.date} {self.time} - {self.user.username}'
 
 
 class Picture(models.Model):

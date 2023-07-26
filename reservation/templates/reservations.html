@@ -14,7 +14,7 @@
                 {% for reservation in reservations %}
                 <!-- Contains the info displayed on the card for each reservation. -->
                 <div class="col-md-4">
-                    <div class="card mb-4">
+                    <div class="card mb-4 {% if reservation.status == 0 %}pending{% elif reservation.status == 1 %}accepted{% else %}declined{% endif %}">
                         <div class="card-body">
                             <!-- Displays the reservations date and time as title. -->
                             <h4 class='card-title text-uppercase text-center'>{{ reservation.date }} at

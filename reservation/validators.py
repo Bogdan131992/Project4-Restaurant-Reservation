@@ -43,14 +43,9 @@ def validate_open_day(value):
     Ensures the input value is not a Monday or a Sunday.
     If validation is failed, the custom error message is returned.
     """
-    if value.weekday() == 0:
+    if value.weekday() == 6:
         raise ValidationError(
-            'We are closed on a Monday, please choose a different date',
-            params={'value': value},
-        )
-    elif value.weekday() == 6:
-        raise ValidationError(
-            'We are closed on a Sunday, please choose a different date',
+            'Sunday we are closed, please choose a different date',
             params={'value': value},
         )
 
@@ -63,13 +58,13 @@ def validate_guest_size(value):
 
     Ensures the input integer is also greater than 0.
     """
-    if value > 8:
+    if value > 10:
         raise ValidationError(
-            'For reservations of more than 8 guests, please call and arrange',
+            'For reservations of more than 10 guests, please call and arrange',
             params={'value': value},
         )
     elif value < 1:
         raise ValidationError(
-            'Please state how many guests will be attending',
+            'Please let us know how many guests will be attending',
             params={'value': value},
         )

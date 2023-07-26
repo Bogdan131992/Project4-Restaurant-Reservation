@@ -39,7 +39,7 @@ class ReservationForm(forms.ModelForm):
 
     requests = forms.CharField(
         label='Special Requirements',
-        required=False,
+        required=True,
         widget=forms.Textarea(attrs={
             'placeholder': 'Any special requirements we should be aware of?'
         }),
