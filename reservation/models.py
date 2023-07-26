@@ -24,7 +24,7 @@ class Reservation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     # User Info needed for Booking
     full_name = models.CharField(max_length=300, blank=False)
-    email = models.CharField(max_length=300, blank=False)
+    email = models.EmailField(max_length=300, blank=False)
     # Contact Number for Booking & Validator
     phoneNumberRegex = RegexValidator(regex=r'^\+?1?\d{9,15}$')
     mobile = models.CharField(validators=[phoneNumberRegex], max_length=15, blank=False)
@@ -35,7 +35,7 @@ class Reservation(models.Model):
     # Number of Guests on Booking
     guests = models.PositiveIntegerField(blank=False)
     # Special Requests for Booking
-    requests = models.TextField(max_length=400)
+    requests = models.TextField(max_length=400, blank=False)
     # Booking Status - status updates handled in admin
     status = models.IntegerField(choices=STATUS, default=0)
 

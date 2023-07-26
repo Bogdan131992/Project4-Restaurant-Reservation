@@ -63,7 +63,7 @@ class ReservationForm(forms.ModelForm):
         model = Reservation
 
         fields = (
-            'full_name', 'mobile', 'date', 'time', 'requests', 'guests'
+            'full_name', 'mobile', 'date', 'time', 'email', 'requests', 'guests'
         )
 
         widgets = {

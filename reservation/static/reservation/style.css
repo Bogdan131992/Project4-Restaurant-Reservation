@@ -48,3 +48,24 @@ body {
     padding: 20px;
     font-size: 24px; /* Adjust the font size to your preference */
 }
+
+/* CSS for Pending Reservations */
+.pending {
+    background-color: rgba(255, 255, 0, 0.774);
+    color: black;
+    padding: 2%;
+}
+
+/* CSS for Accepted Reservations */
+.accepted {
+    background-color: rgba(31, 226, 31, 0.808);
+    color: white;
+    padding: 2%;
+}
+
+/* CSS for Declined Reservations */
+.declined {
+    background-color: red;
+    color: white;
+    padding: 2%;
+}
