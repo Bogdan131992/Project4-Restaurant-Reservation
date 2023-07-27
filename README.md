@@ -1,11 +1,12 @@
 # Restaurant Reservation Django Project
 
-![Alt Text](Image URL)
+![Alt Text](readme-img/dextopimg.png)
 
 ## 1. About The Project
 
 This Django project is designed to manage restaurant reservations. It allows users to create reservations with their full name, email, mobile number, date, time, number of guests, and special requirements. The status of each reservation can be updated by admins in the admin panel. Users can also view their upcoming reservations and cancel or amend them if necessary.
 
+![Alt Text](readme-img/mobileimg.png)
 ## 2. Built With
 
 - Django
@@ -39,7 +40,36 @@ This Django project is designed to manage restaurant reservations. It allows use
 * Reservation List: The application offers a dedicated page for logged-in users to view their upcoming reservations, sorted by date in descending order.
 * Automated Testing: The application includes automated tests to verify the functionality of the reservation form, the reservation model's unique constraint, and the reservation views.
 
-## 6. Roadmap
+
+## Database Schema
+
+1. Reservation Table:
+
+| Field       | Type           | Constraints  |
+|-------------|----------------|--------------|
+| id          | Integer        | Primary Key  |
+| user_id     | Integer        | Foreign Key (User) |
+| full_name   | CharField      | Max length: 300, Not blank |
+| email       | EmailField     | Max length: 300 |
+| mobile      | CharField      | Max length: 15, Not blank |
+| date        | DateField      | Not blank |
+| time        | TimeField      | Not blank |
+| guests      | PositiveIntegerField | Not blank |
+| requests    | TextField      | Max length: 400, Not blank |
+| status      | Integer        | Default: 0 (choices: 0=pending, 1=accepted, 2=declined) |
+
+2. Picture Table:
+
+| Field       | Type           | Constraints  |
+|-------------|----------------|--------------|
+| id          | Integer        | Primary Key  |
+| picture     | CloudinaryField| CloudinaryField with 'picture' label |
+| url         | CharField      | Max length: 300 |
+| name        | CharField      | Max length: 80, Not blank |
+
+The database schema captures the necessary information for the Reservation and Picture models, including relationships between the models using foreign keys and unique constraints to prevent duplicate reservations. The CloudinaryField in the Picture model allows for easy storage of images using Cloudinary.
+
+## 6. Planned features
 
 Here are some planned features for future development:
 
@@ -95,27 +125,21 @@ The application includes comprehensive automated testing to ensure that the rese
 
 * **Reservation Form**: The `ReservationFormTests` class in `reservation/test_forms.py` contains test cases to check the validity of the reservation form with both valid and invalid data. It verifies that the form correctly validates and saves data when provided with valid inputs. It also checks for form errors when data is missing or invalid.
 
-![Alt Text](Image URL)
+![Alt Text](readme-img/tests_forms.png)
 
 * **Reservation Model**: The `ReservationModelTests` class in `reservation/test_models.py` sets up test data and tests the unique constraint for the reservation model. It ensures that attempting to create a duplicate reservation with the same user, date, and time raises an exception as expected.
 
-![Alt Text](Image URL)
+![Alt Text](readme-img/tests_models.png)
 
 * **Reservation Views**: The `ReservationViewsTests` class in `reservation/test_views.py` includes test cases for various views, such as the index view, reservation view, and reservations view. It checks the response status codes and the template used for rendering. Additionally, it tests the reservation view with a POST request to ensure that a new reservation is created after successful form submission.
 
-![Alt Text](Image URL)
+![Alt Text](readme-img/tests_views.png)
 
 The automated tests ensure that the reservation functionality is reliable and free from regressions when new code changes are introduced. It's a crucial part of maintaining a robust and bug-free reservation system.
 
 Please feel free to add more test cases as your project evolves or to enhance the existing ones to cover additional scenarios or edge cases.
 
 ## 9. Credits
-
-## 10. Contact
-
-- Your Name - [Your Email]
-- LinkedIn - [Your LinkedIn Profile]
-
-## 11. Acknowledgments
-
-- List any resources or contributors that have been helpful in creating the project.
+- Codeinstitute Django Projects
+- Youtube Django Project : https://www.youtube.com/watch?v=TuXFAl8aMvc
+- GitHub project : https://github.com/LewisCM14/restaurant-booking-app/tree/main
