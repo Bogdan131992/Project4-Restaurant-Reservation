@@ -45,9 +45,9 @@
                             <!-- Contains the buttons that allow the user to cancel or amend the reservation. -->
                             <div class='text-center'>
                                 <!-- Triggers 'cancel' modal. -->
-                                <button data-bs-toggle='modal' data-bs-target='#cancel{{ reservation.id }}' class="btn btn-dark">Cancel</button>
+                                <button data-bs-toggle='modal' data-bs-target='#cancel{{ reservation.id }}' class="btn btn-danger">Cancel</button>
                                 <!-- Redirects to the amend reservation page. -->
-                                <a class="btn btn-dark" href="/amend/{{ reservation.id }}">Edit</a>
+                                <a class="btn btn-info" href="/amend/{{ reservation.id }}">Edit</a>
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="requests{{ reservation.id }}">Special Requirements</h5>
+                                <h5 class="modal-title" id="requests{{ reservation.id }}">Requirements</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -98,7 +98,7 @@
                     {% endfor %}
                 </div>
         </div>
-        <a href="{% url 'booking' %}" class="text-center"><button class="btn btn-dark">Make a Booking</button></a>
+        <a href="{% url 'booking' %}" class="text-center"><button class="btn btn-success">Make a reservation</button></a>
     </div>
     <style>
         /* CSS for Pending Reservations */

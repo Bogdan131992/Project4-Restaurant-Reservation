@@ -9,6 +9,8 @@ from django.contrib import messages
 from django.http import HttpResponseServerError
 from .models import Reservation, Picture
 from .forms import ReservationForm
+from django.shortcuts import render, redirect, reverse
+from .forms import ReservationForm
 
 
 def index(request):
@@ -90,13 +92,6 @@ class ReservationList(generic.ListView):
         else:
             return redirect(reverse("account_login"))
 
-# Import required modules and classes
-
-
-from django.shortcuts import render, redirect, reverse
-from .forms import ReservationForm
-
-# Import other necessary modules and classes
 
 def booking_view(request):
     print("Booking View Called")
