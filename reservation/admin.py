@@ -1,5 +1,3 @@
-""" This module contains the admin logic for the booking app. """
-
 from django.contrib import admin
 from .models import Reservation, Picture
 

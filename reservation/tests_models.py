@@ -41,7 +41,7 @@ class ReservationModelTests(TestCase):
                 requests='No special requirements'
             )
 
-def test_picture_model_creation(self):
+    def test_picture_model_creation(self):
         # Create a Picture instance
         picture = Picture.objects.create(
             picture='path/to/picture.jpg',
