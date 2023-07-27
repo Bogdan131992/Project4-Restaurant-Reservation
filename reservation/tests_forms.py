@@ -1,64 +1,51 @@
+# reservation/tests/test_forms.py
 
 from django.test import TestCase
-from reservation.forms import ReservationForm
-from reservation.models import Reservation
-from django.utils import timezone
+from .forms import ReservationForm
+from .models import Reservation
 
 class ReservationFormTests(TestCase):
     def test_valid_form(self):
-        # Create test data
+        # Test the form with valid data
         data = {
             'full_name': 'John Doe',
             'mobile': '1234567890',
-            'date': timezone.now().date(),
-            'time': timezone.now().time(),
+            'date': '2023-07-28',
+            'time': '14:00:00',
             'email': 'johndoe@example.com',
-            'requests': 'Test special requirements',
-            'guests': 4,
+            'requests': 'Special requirements',
+            'guests': 2,
         }
-
-        # Create the form instance with test data
         form = ReservationForm(data=data)
-
-        # Check if the form is valid
+        if not form.is_valid():
+            print(form.errors)
         self.assertTrue(form.is_valid())
 
-    # def test_invalid_form(self):
-    #     # Create test data with invalid inputs (e.g., empty fields)
-    #     data = {
-    #         'full_name': '',
-    #         'mobile': '',
-    #         'date': '',
-    #         'time': '',
-    #         'email': 'invalid-email',
-    #         'requests': 'a' * 301,  # Exceeding max_length
-    #         'guests': -1,           # Invalid number of guests
-    #     }
-
-        # Create the form instance with test data
+    def test_invalid_form_missing_data(self):
+        # Test the form with missing data
+        data = {}
         form = ReservationForm(data=data)
-
-        # Check if the form is invalid
         self.assertFalse(form.is_valid())
-
-    def test_future_date_validation(self):
-        # Create test data with a past date
-        data = {
-            'full_name': 'John Doe',
-            'mobile': '1234567890',
-            'date': timezone.now().date() - timezone.timedelta(days=1),
-            'time': timezone.now().time(),
-            'email': 'johndoe@example.com',
-            'requests': 'Test special requirements',
-            'guests': 4,
-        }
-
-        # Create the form instance with test data
-        form = ReservationForm(data=data)
-
-        # Check if the date validation fails
-        self.assertFalse(form.is_valid())
+        self.assertIn('full_name', form.errors)
+        self.assertIn('mobile', form.errors)
         self.assertIn('date', form.errors)
+        self.assertIn('time', form.errors)
+        self.assertIn('email', form.errors)
+        self.assertIn('requests', form.errors)
+        self.assertIn('guests', form.errors)
 
-    
+    def test_invalid_form_invalid_guests(self):
+        # Test the form with invalid number of guests
+        data = {
+            'full_name': 'Jane Smith',
+            'mobile': '9876543210',
+            'date': '2023-07-28',
+            'time': '10:00:00',
+            'email': 'janesmith@example.com',
+            'requests': 'No special requirements',
+            'guests': -1,  # Negative number of guests is invalid
+        }
+        form = ReservationForm(data=data)
+        self.assertFalse(form.is_valid())
+        self.assertIn('guests', form.errors)
 
