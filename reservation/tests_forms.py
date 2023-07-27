@@ -8,11 +8,11 @@ class ReservationFormTests(TestCase):
     def test_valid_form(self):
         # Test the form with valid data
         data = {
-            'full_name': 'John Doe',
+            'full_name': 'John Boc',
             'mobile': '1234567890',
             'date': '2023-07-28',
             'time': '14:00:00',
-            'email': 'johndoe@example.com',
+            'email': 'johnboc@example.com',
             'requests': 'Special requirements',
             'guests': 2,
         }

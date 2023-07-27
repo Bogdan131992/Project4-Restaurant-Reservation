@@ -48,7 +48,7 @@ def reservation(request):
                     current_reservation.save()
                 except IntegrityError:
                     error = 'You have already requested this reservation'
-                    return render(request, 'reservation.html', {
+                    return render(request, 'reservations.html', {
                         "reservation_form": ReservationForm(request.POST),
                         'error': error,
                     })
@@ -56,12 +56,12 @@ def reservation(request):
                 return redirect(reverse("reservations"))
 
             else:
-                return render(request, 'reservation.html', {
+                return render(request, 'reservations.html', {
                     "reservation_form": ReservationForm(request.POST)
                 })
 
         else:
-            return render(request, 'reservation.html', {
+            return render(request, 'reservations.html', {
                 "reservation_form": ReservationForm()
             })
 
