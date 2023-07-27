@@ -16,27 +16,27 @@ class Reservation(models.Model):
     Stores booking details: full_name, email, mobile, date, time,
     and number of guests for each reservation, along with any special requirements.
 
-    Default booking status is 'pending' using the above tuple.
+    Default Reservation status is 'pending' using the above tuple.
 
     Mobile field validation is handled with Django's inbuilt RegexValidator.
     """
     # Foreign Key from the User model
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    # User Info needed for Booking
+    # User Info needed for Reservation
     full_name = models.CharField(max_length=300, blank=False)
     email = models.EmailField(max_length=300)
-    # Contact Number for Booking & Validator
+    # Contact Number for Reservation & Validator
     phoneNumberRegex = RegexValidator(regex=r'^\+?1?\d{9,15}$')
     mobile = models.CharField(validators=[phoneNumberRegex], max_length=15, blank=False)
-    # Date of Booking
+    # Date of Reservation
     date = models.DateField(blank=False)
-    # Time of Booking
+    # Time of Reservation
     time = models.TimeField(blank=False)
-    # Number of Guests on Booking
+    # Number of Guests on Reservation
     guests = models.PositiveIntegerField(blank=False)
-    # Special Requests for Booking
+    # Special Requests for Reservation
     requests = models.TextField(max_length=400, blank=False)
-    # Booking Status - status updates handled in admin
+    # Reservation Status - status updates handled in admin
     status = models.IntegerField(choices=STATUS, default=0)
 
     class Meta:
@@ -50,7 +50,7 @@ class Reservation(models.Model):
         date & time as one they already have stored in the Reservation database.
 
         If a double reservation is attempted, the error is handled in the
-        relevant views in the booking directory (views.py).
+        relevant views.
         """
         ordering = ['-date']
         constraints = [
@@ -63,7 +63,7 @@ class Reservation(models.Model):
         """
         Returns a string representation of the reservation.
 
-        The booking date and time are used as the reservation title.
+        The Reservation date and time are used as the reservation title.
         Defining this method is recommended by Django.
         """
         return f'{self.date} {self.time} - {self.user.username}'
