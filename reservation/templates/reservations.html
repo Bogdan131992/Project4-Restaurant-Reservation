@@ -100,6 +100,28 @@
         </div>
         <a href="{% url 'booking' %}" class="text-center"><button class="btn btn-dark">Make a Booking</button></a>
     </div>
+    <style>
+        /* CSS for Pending Reservations */
+.pending {
+    background-color: rgba(245, 229, 10, 0.918);
+    color: black;
+    padding: 2%;
+}
+
+/* CSS for Accepted Reservations */
+.accepted {
+    background-color: rgba(31, 226, 31, 0.808);
+    color: rgb(17, 16, 16);
+    padding: 2%;
+}
+
+/* CSS for Declined Reservations */
+.declined {
+    background-color: rgb(226, 91, 91);
+    color: rgb(15, 14, 14);
+    padding: 2%;
+}
+    </style>
 </div>
 
 {% endblock %}
